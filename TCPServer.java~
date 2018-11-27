@@ -1,0 +1,38 @@
+import java.io.*;
+import java.io.ObjectOutputStream.PutField;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+
+public class TCPServer implements Runnable{
+    private ServerSocket serverSocket = null;
+    private Socket socket = null;
+    private DataInputStream inStream = null;
+    private DataOutputStream outStream = null;
+    private Scanner scan = null;
+    private int port = null
+
+    public TCPServer(int Port){
+	this.port = Port;
+    }
+
+    public void createSocket()
+    {
+	try{
+	    serverSocket = new ServerSocket(port);
+	    socket = serverSocket.accept();
+	    inStream = new DataInputStream(socket.getInputStream());
+	    outStream = new DataOutpusStream(socet.getOutputStream());
+	    System.out.println("Connected");
+	}
+	catch ( IOException io){
+	    io.printStackTrace();
+	}
+    }
+    public void run(){
+	createSocket();
+	
+
+    }
+
+}
