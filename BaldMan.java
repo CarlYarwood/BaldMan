@@ -23,6 +23,7 @@ public class BaldMan{
 	    return;
 	}
 	
+	
     }
     public void getMessageOutOfImage(String messageFile){
 
@@ -72,5 +73,23 @@ public class BaldMan{
 	    return content;
 	}
     }
+    private BufferedImage getImageCopy(BufferedImage image){
+	BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+	Graphics2D draw = imageCopy.createGraphics();
+	draw.drawRenderedImage(image,null);
+	draw.dispose();
+	return imageCopy;
+    }
+    //takes and int and convertes into a byta array by shifting the int
+    // and anding it with the byte 11111111, as 1 and 1 = 1, and 1 and 0 = 0
+    private convertInt(int i){
+	byte[] transfer = new byte[4];
+	transfer[0] = (byte) (i >> 24) & 0xFF;
+	transfer[1] = (byte) (i >> 16) & 0xFF;
+	transfer[2] = (byte) (i >> 8) & 0xFF;
+	transfer[3] = (byte) (i) & 0xFF;
+	return transfer;
+    }
+	
 
 }
