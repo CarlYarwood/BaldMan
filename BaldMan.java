@@ -1,13 +1,27 @@
 import java.io.File;
-import java.io.InputFileStream;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.awt.Point;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.awt.image.DataBufferByte;
+import java.nio.ByteBuffer;
+
+import javax.imageio.ImageIO;
+
+//if have time implement this as a runnable for multi threading
 public class BaldMan{
 
-    private string imagePath = null;
-    private string message = null;
-    private string messagePath = null;
-    //method not done
+    private String imagePath = null;
+    private String message = null;
+    private String messagePath = null;
+
+    public BaldMan(){
+    }
+    
+    
     public void putMessageInImage(String newImageName){
 	if(imagePath == null){
 	    System.out.println("Must set imagePath");
@@ -22,24 +36,37 @@ public class BaldMan{
 	    System.out.println("Message Not found");
 	    return;
 	}
-	
+	byte [] image =  convertImage(getImageCopy(getImage()));
 	
     }
+
+
+    
     public void getMessageOutOfImage(String messageFile){
 
     }
-
     public void setImagePath(String imagePath){
-	this.imagepath = imagePath;
+	this.imagePath = imagePath;
     }
+
+
+    
     public void setMessagePath(String messagePath){
 	this.messagePath = messagePath;
 	this.message = null;
     }
+
+
+    
     public void setMessage(String message){
 	this.message = message;
 	this.messagePath = null;
     }
+
+
+
+
+    
     private byte[] getMessage(){
 	byte[] content = null;
 	if(messagePath == null && message == null){
@@ -53,12 +80,14 @@ public class BaldMan{
 	    File file = new File(messagePath);
 	    FileInputStream fis = null;
 	    try{
-		fis = new FileInputStream(fis);
+		fis = new FileInputStream(file);
 		content = new byte[(int)file.length()];
 		fis.read(content);
 	    }catch(FileNotFoundException e){
 	        System.out.println("File not found");
 		return null;
+	    }catch(IOException e){
+		System.out.println("Early IOException");
 	    }
 	    finally{
 		try{
@@ -73,6 +102,9 @@ public class BaldMan{
 	    return content;
 	}
     }
+
+
+    
     private BufferedImage getImageCopy(BufferedImage image){
 	BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
 	Graphics2D draw = imageCopy.createGraphics();
@@ -80,16 +112,43 @@ public class BaldMan{
 	draw.dispose();
 	return imageCopy;
     }
+
+    
+    private BufferedImage getImage(){
+	BufferedImage img = null;
+	try{
+	    File imageFile = new File(imagePath);
+	    img = ImageIO.read(imageFile);
+	}catch(FileNotFoundException e){
+	    System.out.println("Image File Not Found");
+	    return null;
+	}catch(IOException e){
+	    System.out.println("Error on Read Try New Image");
+	    return null;
+	}
+	return img;
+    }
+    
     //takes and int and convertes into a byta array by shifting the int
     // and anding it with the byte 11111111, as 1 and 1 = 1, and 1 and 0 = 0
-    private convertInt(int i){
-	byte[] transfer = new byte[4];
-	transfer[0] = (byte) (i >> 24) & 0xFF;
-	transfer[1] = (byte) (i >> 16) & 0xFF;
-	transfer[2] = (byte) (i >> 8) & 0xFF;
-	transfer[3] = (byte) (i) & 0xFF;
-	return transfer;
+    private byte[] convertInt(int i){
+	ByteBuffer buff = ByteBuffer.allocate(4);
+	buff.putInt(i);
+	return buff.array();
     }
+
+
+    
+    private int convertBackInt(byte[] num){
+	ByteBuffer buff = ByteBuffer.wrap(num);
+	return buff.getInt();
+    }
+    private byte[] convertImage(BufferedImage img){
+	WritableRaster raster = img.getRaster();
+	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
+	return buffer.getData();
+    }
+	
 	
 
 }

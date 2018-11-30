@@ -1,0 +1,1 @@
+INDEX VERSION 1.126+/home/ldap/cdy8858/cs455/BaldMan/.metadata/.plugins/org.eclipse.jdt.core

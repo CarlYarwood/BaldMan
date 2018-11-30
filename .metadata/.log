@@ -1,0 +1,45 @@
+!SESSION 2018-11-29 20:01:21.309 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_181
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  --XX:MaxPermSize=1024m
+Command-line arguments:  -data /home/ldap/cdy8858/cs455/BaldMan -os linux -ws gtk -arch x86_64 --XX:MaxPermSize=1024m
+
+!ENTRY org.eclipse.ui 4 4 2018-11-29 20:01:24.737
+!MESSAGE Could not create view: 'org.eclipse.ui.internal.introview'.
+
+!ENTRY org.eclipse.ui 4 0 2018-11-29 20:01:25.887
+!MESSAGE Problems occurred restoring workbench.
+!SUBENTRY 1 unknown 0 0 2018-11-29 20:01:25.887
+!MESSAGE OK
+!SUBENTRY 1 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 1 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 1 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.ui 4 0 2018-11-29 20:01:25.888
+!MESSAGE Unable to restore perspective: Workspace - Resource.
+!SUBENTRY 2 org.eclipse.ui 0 0 2018-11-29 20:01:25.888
+!MESSAGE Problems occurred restoring perspective.
+!SUBENTRY 3 org.eclipse.ui 0 0 2018-11-29 20:01:25.888
+!MESSAGE 
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
+!SUBENTRY 2 org.eclipse.ui 4 0 2018-11-29 20:01:25.888
+!MESSAGE Could not find view: org.eclipse.ui.internal.introview
+!SUBENTRY 1 unknown 0 0 2018-11-29 20:01:25.888
+!MESSAGE OK
