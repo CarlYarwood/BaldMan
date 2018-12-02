@@ -3,10 +3,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.awt.Point;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.awt.image.Raster;
 import java.awt.image.DataBufferByte;
 import java.nio.ByteBuffer;
 
@@ -43,13 +45,13 @@ public class BaldMan{
 	BufferedImage img = getImageCopy(getImage());
 	byte [] image =  convertImage(img);
 	if(bitSteg == Bits.ONE){
-	    System.out.println("This message can hold " + image.length + " bits.");
+	    System.out.println("This image can hold " + image.length + " bits.");
 	}
 	else if(bitSteg == Bits.TWO){
-	    System.out.println("This message can hold " + image.length * 2 + " bits.");
+	    System.out.println("This image can hold " + image.length * 2 + " bits.");
 	}
 	else if(bitSteg == Bits.FOUR){
-	    System.out.println("This message can hold " + image.length * 4 + " bits.");
+	    System.out.println("This image can hold " + image.length * 4 + " bits.");
 	}
 	System.out.println("Your message is "+ encodeMessage.length * 8 + " bits.");
 	if(image == null){
@@ -111,6 +113,13 @@ public class BaldMan{
 	if(messageDestinationPath == null){
             String message = new String(msg);
 	    System.out.println(message);
+	}
+	else{
+	    try(FileOutputStream fos = new FileOutputStream(messageDestinationPath)){
+		fos.write(msg);
+	    }catch(Exception e){
+		System.out.println("cannot write message to destination");
+	    }
 	}
     }
 	    
@@ -221,7 +230,7 @@ public class BaldMan{
 	return buff.getInt();
     }
     private byte[] convertImage(BufferedImage img){
-	WritableRaster raster = img.getRaster();
+        Raster raster = (Raster)img.getRaster();
 	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
 	return buffer.getData();
     }

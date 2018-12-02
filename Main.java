@@ -12,8 +12,9 @@ public class Main{
 	//	}
 	BaldMan stego = new BaldMan();
 	stego.setImagePath("red.png");
-        stego.setMessagePath("message.txt");
-	//stego.setStegBits(Bits.FOUR);
+        stego.setMessagePath("littleWizzard.png");
+	stego.setMessageDestinationPath("outLittleWizzard.png");
+	stego.setStegBits(Bits.FOUR);
 	stego.putMessageInImage("secretRed.png");
 	stego.setImagePath("secretRed.png");
 	stego.getMessageOutOfImage();
