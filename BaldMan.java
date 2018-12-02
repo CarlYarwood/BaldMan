@@ -31,12 +31,22 @@ public class BaldMan{
 	    System.out.println("must set message or message Path");
 	    return;
 	}
-	byte[] encode = getMessage();
-	if(encode == null){
+	byte[] encodeMessage = getMessage();
+	if(encodeMessage == null){
 	    System.out.println("Message Not found");
 	    return;
 	}
 	byte [] image =  convertImage(getImageCopy(getImage()));
+	if(image == null){
+	    System.out.println("could not get image");
+	    return;
+	}
+	try{
+	    encodeMessage(encodeMessage, image);
+	}catch(IOException e){
+	    System.out.println("Message too large for image");
+	    return;
+	}
 	
     }
 
@@ -148,7 +158,29 @@ public class BaldMan{
 	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
 	return buffer.getData();
     }
-	
+    private void encodeMessage(byte[] message,byte[] img){
+	byte[] messageLength = convertInt(message.length * 8);
+	int lengthForLoop = message.length;
+	if(img.length < (message.length * 8) + 32){
+	    System.out.println("Message too large for given image");
+	    throw new IOException("image not big enough for message");
+	}
+	int currentPosInImage = 0;
+	for(int i = 0; i< 4; i++){
+	    for(int bits = 7; bits >= 0 ; bits ++){
+		img[currentPosInImage] = img[currentPosInImage] & (Byte)254;
+		img[currentPosInImage] = img[currentPosInImage] | ((messageLength[i] >> bits) & (Byte)1 );
+		currentPosInImage ++;
+	    }
+	}
+	for(int i = 0; i< lengthForLoop; i++){
+	    for(int bits = 7; bits >= 0 ; bits ++){
+		img[currentPosInImage] = img[currentPosInImage] & (Byte)254;
+		img[currentPosInImage] = img[currentPosInImage] | ((message[i] >>bits) & 0x01 );
+		currentPosInImage++;
+	    }
+	}
+    }
 	
 
 }
