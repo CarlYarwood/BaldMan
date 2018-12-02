@@ -16,7 +16,8 @@ import javax.imageio.ImageIO;
 
 
 
-//if have time implement this as a runnable for multi threading
+//stegosaurs for all your stegonagraphic needs
+//is not muffin
 public class BaldMan{
 
     private String imagePath = null;
@@ -90,7 +91,7 @@ public class BaldMan{
 	    divisor = 2;
 	    letIn = 3;
 	}
-	else{
+	else if (bitSteg == Bits.FOUR){
 	    divisor = 4;
 	    letIn = 15;
 	}
@@ -122,6 +123,12 @@ public class BaldMan{
 	    }
 	}
     }
+
+
+
+
+
+    
 	    
 	    
     public void setImagePath(String imagePath){
@@ -141,10 +148,18 @@ public class BaldMan{
 
 
     
+
+
+    
     public void setMessage(String message){
 	this.message = message;
 	this.messagePath = null;
     }
+
+
+
+
+    
 
     public void setStegBits( Bits b){
 	this.bitSteg = b;
@@ -190,6 +205,11 @@ public class BaldMan{
     }
 
 
+
+
+    
+
+
     
     private BufferedImage getImageCopy(BufferedImage image){
 	BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
@@ -199,8 +219,13 @@ public class BaldMan{
 	return imageCopy;
     }
 
+
+
+
     
-    private BufferedImage getImage(){
+
+    
+    public BufferedImage getImage(){
 	BufferedImage img = null;
 	try{
 	    File imageFile = new File(imagePath);
@@ -214,6 +239,12 @@ public class BaldMan{
 	}
 	return img;
     }
+
+
+
+
+
+    
     
     //takes and int and convertes into a byta array by shifting the int
     // and anding it with the byte 11111111, as 1 and 1 = 1, and 1 and 0 = 0
@@ -229,11 +260,26 @@ public class BaldMan{
 	ByteBuffer buff = ByteBuffer.wrap(num);
 	return buff.getInt();
     }
-    private byte[] convertImage(BufferedImage img){
+
+
+
+
+
+
+
+
+
+    
+    public byte[] convertImage(BufferedImage img){
         Raster raster = (Raster)img.getRaster();
 	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
 	return buffer.getData();
     }
+
+
+
+
+    
     private void encodeMessage(byte[] message, byte[] img)throws IOException{
 	byte mask = 0;
 	byte letIn = 0;
@@ -248,7 +294,7 @@ public class BaldMan{
 	    letIn = 3;
 	    divisor = 2;
 	}
-	else{
+	else if (bitSteg == Bits.FOUR){
 	    mask = (byte)240;
 	    letIn = 15;
 	    divisor = 4;
