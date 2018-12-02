@@ -11,6 +11,12 @@ public class Main{
 	//   server.listenForConnection();
 	//	}
 	BaldMan stego = new BaldMan();
+	stego.setImagePath("red.png");
+        stego.setMessagePath("message.txt");
+	stego.setStegBits(Bits.FOUR);
+	stego.putMessageInImage("secretRed.png");
+	stego.setImagePath("secretRed.png");
+	stego.getMessageOutOfImage();
     }
 
 }

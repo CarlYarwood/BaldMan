@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.ByteArrayInputStream;
 import java.awt.Point;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -11,16 +12,18 @@ import java.nio.ByteBuffer;
 
 import javax.imageio.ImageIO;
 
+
+
 //if have time implement this as a runnable for multi threading
 public class BaldMan{
 
     private String imagePath = null;
     private String message = null;
     private String messagePath = null;
+    private Bits bitSteg = Bits.ONE;
 
     public BaldMan(){
     }
-    
     
     public void putMessageInImage(String newImageName){
 	if(imagePath == null){
@@ -36,23 +39,69 @@ public class BaldMan{
 	    System.out.println("Message Not found");
 	    return;
 	}
-	byte [] image =  convertImage(getImageCopy(getImage()));
+	BufferedImage img = getImageCopy(getImage());
+	byte [] image =  convertImage(img);
 	if(image == null){
 	    System.out.println("could not get image");
 	    return;
 	}
 	try{
-	    encodeMessage(encodeMessage, image);
+	    encodeMessageDynamic(encodeMessage, image);
 	}catch(IOException e){
 	    System.out.println("Message too large for image");
 	    return;
 	}
+	newImageName = newImageName;
+	try{
+	    ImageIO.write(img,"png",new File(newImageName));
+	}catch(Exception e){
+	    System.out.println("could not write file");
+	    return;
+	}
+	
 	
     }
 
 
     
-    public void getMessageOutOfImage(String messageFile){
+    public void getMessageOutOfImage(){
+	byte letIn = 0;
+	byte divisor = 1;
+	if(imagePath == null){
+	    System.out.println("Must set an Image Path");
+	}
+	if(bitSteg == Bits.ONE){
+	    divisor = 1;
+	    letIn = 1;
+	}
+	else if (bitSteg == Bits.TWO){
+	    divisor = 2;
+	    letIn = 3;
+	}
+	else{
+	    divisor = 4;
+	    letIn = 15;
+	}
+	byte[] img = convertImage(getImage());
+	int length = 0;
+	int posInImage = 0;
+	for(int i = 0; i<(32/divisor); i++){
+	    length =length << divisor;
+	    length = length | img[i] & letIn;
+	    posInImage++;
+	}
+	byte[] msg = new byte[length/(8/divisor)];
+	for(int i = 0; i < msg.length; i++){
+	    for(int c = 0; c< (8/divisor); c++){
+		msg[i] = (byte)(msg[i] << divisor);
+		msg[i] = (byte)(msg[i]| (img[posInImage]& letIn));
+		posInImage++;
+	    }
+	}
+        
+	String message = new String(msg);
+	System.out.println(message);
+	    
 
     }
     public void setImagePath(String imagePath){
@@ -73,6 +122,9 @@ public class BaldMan{
 	this.messagePath = null;
     }
 
+    public void setStegBits( Bits b){
+	this.bitSteg = b;
+    }
 
 
 
@@ -158,26 +210,66 @@ public class BaldMan{
 	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
 	return buffer.getData();
     }
-    private void encodeMessage(byte[] message,byte[] img){
+    private void encodeMessage(byte[] message,byte[] img)throws IOException{
 	byte[] messageLength = convertInt(message.length * 8);
 	int lengthForLoop = message.length;
+	Byte b = 1;
 	if(img.length < (message.length * 8) + 32){
 	    System.out.println("Message too large for given image");
 	    throw new IOException("image not big enough for message");
 	}
 	int currentPosInImage = 0;
 	for(int i = 0; i< 4; i++){
-	    for(int bits = 7; bits >= 0 ; bits ++){
-		img[currentPosInImage] = img[currentPosInImage] & (Byte)254;
-		img[currentPosInImage] = img[currentPosInImage] | ((messageLength[i] >> bits) & (Byte)1 );
+	    for(int bits = 7; bits >= 0 ; bits--){
+		img[currentPosInImage] =(byte)(img[currentPosInImage] & 254);
+		img[currentPosInImage] =(byte) (img[currentPosInImage] | ((messageLength[i] >> bits) & 1 ));
 		currentPosInImage ++;
 	    }
 	}
 	for(int i = 0; i< lengthForLoop; i++){
-	    for(int bits = 7; bits >= 0 ; bits ++){
-		img[currentPosInImage] = img[currentPosInImage] & (Byte)254;
-		img[currentPosInImage] = img[currentPosInImage] | ((message[i] >>bits) & 0x01 );
+	    for(int bits = 7; bits >= 0 ; bits--){
+		img[currentPosInImage] = (byte)(img[currentPosInImage] & 254);
+		img[currentPosInImage] = (byte)(img[currentPosInImage] | ((message[i] >>bits) &  1));
 		currentPosInImage++;
+	    }
+	}
+    }
+    private void encodeMessageDynamic(byte[] message, byte[] img)throws IOException{
+	byte mask = 0;
+	byte letIn = 0;
+	int divisor = 1;
+	if(bitSteg == Bits.ONE){
+	    encodeMessage(message, img);
+	    return;
+	}
+	else if(bitSteg == Bits.TWO){
+	    mask = (byte)252;
+	    letIn = 3;
+	    divisor = 2;
+	}
+	else{
+	    mask = (byte)240;
+	    letIn = 15;
+	    divisor = 4;
+	}
+	if(img.length < (message.length * (8/divisor) + (32/divisor))){
+	    System.out.println("Message too large for given image");
+	    throw new IOException("image not big enough for message");
+	}
+	byte[] messageLength = convertInt(message.length * (8/divisor));
+	int currentPosInImage = 0;
+	for(int i = 0; i< 4; i++){
+	    for(int bits = (8/divisor) - 1; bits >= 0 ; bits--){
+		img[currentPosInImage] =(byte)(img[currentPosInImage] & mask);
+		img[currentPosInImage] =(byte) (img[currentPosInImage] | ((messageLength[i] >> (bits * divisor)) & letIn ));
+		currentPosInImage ++;
+	    }
+	}
+	for(int i = 0; i< message.length; i++){
+	    for(int bits = (8/divisor) - 1 ; bits >= 0 ; bits--){
+		img[currentPosInImage] =(byte)(img[currentPosInImage] & mask);
+		img[currentPosInImage] =(byte) (img[currentPosInImage] | ((message[i] >> (bits*divisor)) & letIn ));
+		currentPosInImage ++;
 	    }
 	}
     }
