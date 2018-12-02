@@ -225,7 +225,7 @@ public class BaldMan{
     
 
     
-    public BufferedImage getImage(){
+    private BufferedImage getImage(){
 	BufferedImage img = null;
 	try{
 	    File imageFile = new File(imagePath);
@@ -270,7 +270,7 @@ public class BaldMan{
 
 
     
-    public byte[] convertImage(BufferedImage img){
+    private byte[] convertImage(BufferedImage img){
         Raster raster = (Raster)img.getRaster();
 	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
 	return buffer.getData();
