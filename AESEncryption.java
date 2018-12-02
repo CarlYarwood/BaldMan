@@ -57,9 +57,9 @@ public class AESEncryption {
 
 	
 	public static void main(String[] args) {
-	    final String secretKey = "ssshhhhhhhhhhh!!!!";
+	    final String secretKey = "My secret key";
 	     
-	    String originalString = "howtodoinjava.com";
+	    String originalString = "TEST";
 	    String encryptedString = AESEncryption.encrypt(originalString, secretKey) ;
 	    String decryptedString = AESEncryption.decrypt(encryptedString, secretKey) ;
 	     
