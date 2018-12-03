@@ -71,21 +71,24 @@
 	
 	\begin{figure}[h]
 		\centering
-		\includegraphics[keepaspectratio=true, width=0.8\linewidth]{image/bloob.png}
-		\caption{This is an example of inserting too large of a message file into the image file causing distortion of the original image.}
+                \begin{subfigure}[t]{0.3\textwidth}
+                    \includegraphics[keepaspectratio=true, width=0.8\linewidth]{image/bloob.png}
+                    \caption{This is an example of inserting too large of a message file into the image file causing distortion of the original image.}
+                \end{subfigure}
 	\end{figure}
+        \begin{figure}[h]
+                    \centering
+                    \includegraphics[keepaspectratio=true, width=0.8\linewidth]{screenshot.png}
+                    \caption{BaldMan running showing max bytes of the image.}
+            \end{figure}
 	
 	
-	\section[Discussion]{\Large\fontfamily{qpl}\selectfont\scshape Discussion}
-	
-	\subsection[Max Bytes]{\hspace*{1em}\large\fontfamily{qpl}\selectfont\scshape Max Bytes}
-	
-	\begin{figure}[h]
-		\centering
-		\includegraphics[keepaspectratio=true, width=0.8\linewidth]{screenshot.png}
-		\caption{BaldMan running showing max bytes of the image.}
-	\end{figure}
-	
+	\section[Sources]{\Large\fontfamily{qpl}\selectfont\scshape Discussion}
+        For Bald Main I used the dream in code stegnogaphy post done by William Willard, for isnperation\\
+        and as an outline for the final code, we decided to use a terminal system fore ease of use\\
+        used how to do it in java to help start AES. Also used various stack overflow sources.
+        
+
 	\section[Source Code]{\Large\fontfamily{qpl}\selectfont\scshape Source Code}
 	
 	\subsection[AESEncryption]{\hspace*{1em}\large\fontfamily{qpl}\selectfont\scshape AESEncryption.java}
@@ -99,6 +102,12 @@
 	
 	\subsection[Main]{\hspace*{1em}\large\fontfamily{qpl}\selectfont\scshape Main.java}
 	\lstinputlisting[language=Java]{Main.java}
+        
+        \subsection[TCPClientFile]{\hspace*{1em}\large\fontfamily{qpl}\selectfont\scshape Main.java}
+	\lstinputlisting[language=Java]{TCPClientFile.java}
+        
+        \subsection[TCPClientFile]{\hspace*{1em}\large\fontfamily{qpl}\selectfont\scshape Main.java}
+	\lstinputlisting[language=Java]{TCPServerFile.java}
 	
 	\section[Project Contributions]{\Large\fontfamily{qpl}\selectfont\scshape Project Contributions}
 	
@@ -110,7 +119,9 @@
 			& Elisabeth Goggin\\
 			\bfseries Coding & Carl Yarwood\\
 			& Garry Alcorn\\
-			\bfseries Writeup & Elisabeth Goggin\\
+			\bfseries Writeup & Elisabeth Goggin \\
+                        & CarlYarwood \\
+                        & GarrayAlcorn\\
 		\end{tabular}
 		}
 	\end{center}

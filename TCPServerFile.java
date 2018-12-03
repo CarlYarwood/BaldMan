@@ -8,7 +8,7 @@ import java.net.SocketException;
  * 
  * @author cjaiswal
  *
- * UPDATED: November 1 2018
+ * UPDATED: 12/2/2018 by botz
  * 
  * A simple TCP server for file download with a typical tcp payload size of 1000 bytes
  * 

@@ -6,8 +6,9 @@ import java.net.UnknownHostException;
 /**
  * 
  * @author cjaiswal
+8
  *
- * UPDATED: November 1 2018
+ * UPDATED: 12/2/2018 by Botz
  * 
  * A simple TCP client for file download with an expected typical tcp payload size of 1000 bytes
  * 
