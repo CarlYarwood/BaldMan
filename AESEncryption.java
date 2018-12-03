@@ -16,16 +16,19 @@ public class AESEncryption {
 	private static String theKey = "default";
 	private static String salt = "E1F53135E559C253";
 	
+	//default Constructor
 	public AESEncryption() {
 	}
+	//Return the current key being used for encryption/decryption
     public void getState(){
 	System.out.println("Key => "+ theKey);
     }
-	
+	//Put method to set the value for the key
 	public void setKey(String key) {
 		theKey = key;
 	}
 	
+	//Takes in a byte array and returns an encrypted byte array using the key, AES, SHA256 and PKCS5Padding
 	public static byte[] encrypt(byte[] byteToEncrypt ) {
 		
 		try {
@@ -54,6 +57,7 @@ public class AESEncryption {
 		return null;
 	}
 	
+	//Takes in an encrypted byte array and Decrypts using AES CBC and PKCS5 Padding, returning a decrypted byte array
 	public static byte[] decrypt(byte[] byteToDecrypt ) {
 	    try
 	    {
@@ -75,6 +79,7 @@ public class AESEncryption {
 	    return null;
 	}
 	
+	//Converts the image and into a byte array using File IO
 	public byte[] getImageBytes(String imagePath) {
 		byte[] content = null;
 		 File file = new File(imagePath);
