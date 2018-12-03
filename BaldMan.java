@@ -28,6 +28,13 @@ public class BaldMan{
 
     public BaldMan(){
     }
+    public void getState(){
+	System.out.println("imagePath => " + imagePath);
+	System.out.println("message => " + message);
+	System.out.println("messagePath => " + messagePath);
+	System.out.println("messageDestinationPath => " + messageDestinationPath);
+	System.out.println("bitSteg => " + bitSteg);
+    }
     
     public void putMessageInImage(String newImageName){
 	if(imagePath == null){
