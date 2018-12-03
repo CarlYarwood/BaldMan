@@ -43,7 +43,6 @@ public class AESEncryption {
 			//Initializes the cipher to encrypt the secret key to the Initialization Vector
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
 
-			//return Base64.getEncoder().encode(cipher.doFinal(byteToEncrypt));
 			return cipher.doFinal(byteToEncrypt);
 		}
 		catch (Exception e) {
@@ -65,7 +64,6 @@ public class AESEncryption {
 	         
 	        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 	        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivspec);
-	       // return cipher.doFinal(Base64.getDecoder().decode(byteToDecrypt));
 	        return cipher.doFinal(byteToDecrypt);
 	    }
 	    catch (Exception e) {
