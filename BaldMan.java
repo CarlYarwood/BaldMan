@@ -31,7 +31,7 @@ public class BaldMan{
     public BaldMan(){
     }
     /**
-       Prints the current state of the program to the console
+     *Prints the current state of the program to the console
      */
     public void getState(){
 	System.out.println("imagePath => " + imagePath);
@@ -41,7 +41,8 @@ public class BaldMan{
 	System.out.println("bitSteg => " + bitSteg);
     }
     /**
-       uses the current state of the program to try to put a message in an image
+     *Uses the current state of the program to try to put a message in an image
+     *@param String representing path to new image
     */
     
     public void putMessageInImage(String newImageName){
@@ -92,7 +93,8 @@ public class BaldMan{
 
 
     /**
-       uses the current state of the program to try and pull an image form a message
+     *uses the current state of the program to 
+     *try and pull an image form a message
     */
     
     public void getMessageOutOfImage(){
@@ -141,51 +143,48 @@ public class BaldMan{
 	    }
 	}
     }
-
-
-
-
-
     
-	    
-	    
+    /**
+     *Sets imagePath in state of program
+     *@param string representing path to image
+     */	    
     public void setImagePath(String imagePath){
 	this.imagePath = imagePath;
     }
+    /**
+     *Sets the path to the ouput file for message
+     *@param string representing message output
+     */
 
     public void setMessageDestinationPath(String Path){
 	this.messageDestinationPath = Path;
     }
-
-
-    
+    /**
+     *sets path to message
+     *@param string represent path to file holding message
+     */
     public void setMessagePath(String messagePath){
 	this.messagePath = messagePath;
 	this.message = null;
     }
-
-
-    
-
-
-    
+    /**
+     *sets Message
+     *@param String representing message
+     */
     public void setMessage(String message){
 	this.message = message;
 	this.messagePath = null;
     }
-
-
-
-
-    
-
+    /**
+     *set type of stnography, leastSignificant, two least, four least
+     *@parm Bit enum which represents type of encryption
+     */
     public void setStegBits( Bits b){
 	this.bitSteg = b;
     }
-
-
-
-    
+    /**
+     *gets message based on object state
+     */
     private byte[] getMessage(){
 	byte[] content = null;
 	if(messagePath == null && message == null){
@@ -221,14 +220,11 @@ public class BaldMan{
 	    return content;
 	}
     }
-
-
-
-
-    
-
-
-    
+    /**
+     *gets copy of buffer image
+     *@param image to be coppied
+     *@return copy of image
+     */
     private BufferedImage getImageCopy(BufferedImage image){
 	BufferedImage imageCopy = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
 	Graphics2D draw = imageCopy.createGraphics();
@@ -236,13 +232,10 @@ public class BaldMan{
 	draw.dispose();
 	return imageCopy;
     }
-
-
-
-
-    
-
-    
+    /**
+     *gets buffered image base on program state
+     *@return image
+     */
     private BufferedImage getImage(){
 	BufferedImage img = null;
 	try{
@@ -257,47 +250,40 @@ public class BaldMan{
 	}
 	return img;
     }
-
-
-
-
-
-    
-    
-    //takes and int and convertes into a byta array by shifting the int
-    // and anding it with the byte 11111111, as 1 and 1 = 1, and 1 and 0 = 0
+    /**
+     *converts int ot byte array
+     *@param int to be converted
+     *@return byte[] array for int
+     */
     private byte[] convertInt(int i){
 	ByteBuffer buff = ByteBuffer.allocate(4);
 	buff.putInt(i);
 	return buff.array();
     }
-
-
-    
+    /**
+     *Converts a byte array to an int
+     *@param byte array to be converted
+     *@return int
+     */
     private int convertBackInt(byte[] num){
 	ByteBuffer buff = ByteBuffer.wrap(num);
 	return buff.getInt();
     }
-
-
-
-
-
-
-
-
-
-    
+    /**
+     *converts bufferd image to byte array representing pixels with Raster
+     *@param image to be converted
+     *@return byte[] representing image
+     */
     private byte[] convertImage(BufferedImage img){
         Raster raster = (Raster)img.getRaster();
 	DataBufferByte buffer = (DataBufferByte) raster.getDataBuffer();
 	return buffer.getData();
     }
-
-
-
-
-    
+    /**
+     *does the heavy lifting of putting the message into the image
+     *@param byte array representing message
+     *@param byte array representing image
+     */
     private void encodeMessage(byte[] message, byte[] img)throws IOException{
 	byte mask = 0;
 	byte letIn = 0;
