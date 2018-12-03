@@ -98,7 +98,6 @@ public class Main{
 		System.out.print("Enter the port you wold like to use: ");
 		int port = scan.nextInt();
 		dummy = scan.nextLine();
-		System.out.print("Enter the name of the file you want to send: ");
 		String[] fileNames = new String[numFiles];
 		for(int i = 0; i < numFiles; i++){
 		    System.out.print("Enter the name of file " + i + ": ");
