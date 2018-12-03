@@ -3,7 +3,8 @@
 
 \usepackage{amsmath}
 \usepackage[parfill]{parskip}
-\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{bold-extra}
 \usepackage{listings}
 
@@ -48,36 +49,30 @@
 	
 	\section[Test Cases]{\Large\fontfamily{qpl}\selectfont\scshape Test Cases}
 	
-	In the following example we will be hiding Figure 1 inside Figure 2.
-	\begin{figure}[h!]
+	In the following example we will be hiding Figure 1a inside Figure 1b to get an output of Figure 1c.
+	\begin{figure}[h]
 		\centering
-		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/littleWizzard.png}
-		\caption{The image to be hidden.}
-	\end{figure}
-
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/red.png}
-		\caption{The image to be hidden inside.}
+		\begin{subfigure}[t]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{image/littleWizzard.png}
+			\caption{The image to be hidden.}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{image/red.png}
+			\caption{The image to hide the other image in.}
+		\end{subfigure}
+		~
+		\begin{subfigure}[t]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{image/newRed.png}
+			\caption{The output in which the image is hidden.}
+		\end{subfigure}
+		\caption{Example images}
 	\end{figure}
 	
-	\begin{figure}[h!]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[keepaspectratio=true, width=0.8\linewidth]{screenshot.png}
-		\caption{An example of BaldMan running.}
-	\end{figure}
-	
-	\clearpage
-
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/newRed.png}
-		\caption{The output in which the image is hidden.}
-	\end{figure}
-
-	\begin{figure}
-		\centering
-		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/bloob.png}
+		\caption{BaldMan running.}
 	\end{figure}
 	
 	\section[Discussion]{\Large\fontfamily{qpl}\selectfont\scshape Discussion}
