@@ -1,6 +1,3 @@
-package networking;
-
-
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
@@ -27,12 +24,12 @@ public class TCPClientFile
 
     }
 
-    public void createSocket()
+    public void createSocket(String ip, int port)
     {
         try 
         {
         	//connect to localHost (or ip) at given port #
-            socket = new Socket("localHost", 3339);
+            socket = new Socket(ip , port);
             System.out.println("Connected");
             //fetch the streams
             inStream = new DataInputStream(socket.getInputStream());
@@ -44,7 +41,7 @@ public class TCPClientFile
         } 
     }
 
-    public void receiveFile()
+    public void receiveFile(String newFileName)
     {
     	byte [] data = null;
     	//decide the max buffer size in bytes
@@ -67,7 +64,7 @@ public class TCPClientFile
     		data = new byte[bufferSize];
     		
     		//insert the path/name of your target file
-    		FileOutputStream fileOut = new FileOutputStream("Assignment-5-Copy.pdf",true);		
+    		FileOutputStream fileOut = new FileOutputStream(newFileName,true);		
     		
     		//now read the file coming from Server & save it onto disk
   
@@ -111,10 +108,4 @@ public class TCPClientFile
     	}
     }
     
-    public static void main(String[] args) throws Exception 
-    {
-        TCPClientFile fileClient = new TCPClientFile();
-        fileClient.createSocket();
-        fileClient.receiveFile();
-    }
 }

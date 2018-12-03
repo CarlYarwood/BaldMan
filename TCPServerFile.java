@@ -1,5 +1,3 @@
-package networking;
-
 import java.io.*;
 import java.io.ObjectOutputStream.PutField;
 import java.net.ServerSocket;
@@ -28,12 +26,12 @@ public class TCPServerFile
 
     }
 
-    public void createSocket() 
+    public void createSocket(int port) 
     {
         try 
         {
         	//create Server and start listening
-            serverSocket = new ServerSocket(3339);
+            serverSocket = new ServerSocket(port);
             //accept the connection
             socket = serverSocket.accept();
             //fetch the streams
@@ -47,7 +45,7 @@ public class TCPServerFile
         }
     }
     
-    public void sendFile()
+    public void sendFile(String FileName)
     {
     	final int MAX_BUFFER = 1000;
     	byte [] data = null;
@@ -55,7 +53,7 @@ public class TCPServerFile
     	try
     	{
     		//	write the filename, relative path, below in the File constructor
-    		File file = new File("Assignment-5-Fall18.pdf");
+    		File file = new File(FileName);
     		FileInputStream fileInput = new FileInputStream(file);
     		//get the file length
     		long fileSize = file.length();
@@ -110,10 +108,4 @@ public class TCPServerFile
     	}
     }
 
-    public static void main(String[] args)
-    {
-    	TCPServerFile fileServer = new TCPServerFile();
-        fileServer.createSocket();
-        fileServer.sendFile();
-    }
 }

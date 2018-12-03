@@ -92,6 +92,28 @@ public class Main{
 		String key = scan.nextLine();
 		aes.setKey(key);
 	    }
+	    else if(command.equals("sendFile")){
+		System.out.print("Enter the port you wold like to use: ");
+		int port = scan.nextInt();
+		String dummy = scan.nextLine();
+		System.out.print("Enter the name of the file you want to send: ");
+		String fileName = scan.nextLine();
+		TCPServerFile fs = new TCPServerFile();
+		fs.createSocket(port);
+		fs.sendFile(fileName);
+	    }
+	    else if(command.equals("getFile")){
+		System.out.print("Enter the ip address you want to recive form: ");
+		String ip = scan.nextLine();
+		System.out.print("Enter the port of connection: ");
+		int port = scan.nextInt();
+		String dummy = scan.nextLine();
+		System.out.print("Enter the Name of the new file you want to get");
+		String newFileName = scan.nextLine();
+		TCPClientFile soc = new TCPClientFile();
+		soc.createSocket(ip, port);
+		soc.receiveFile(newFileName);
+	    }
 	    else if(command.equals("-h")){
 		System.out.println("state (Recomended)");
 		System.out.println("quit");
@@ -105,6 +127,8 @@ public class Main{
 		System.out.println("encrypt");
 		System.out.println("decrypt");
 		System.out.println("setKey");
+		System.out.println("sendFile");
+		System.out.println("getFile");
 	    }	
 	    else{
 		System.out.println("Use -h to get a list of valid commands");
