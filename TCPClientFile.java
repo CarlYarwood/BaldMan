@@ -98,14 +98,21 @@ public class TCPClientFile
     		}
     		System.out.println("File Size is: "+fileSize + ", number of bytes read are: " + totalBytesRead);
     		
-    		socket.close();
+    		//socket.close();
     		fileOut.close();
-    		inStream.close();
+    		//inStream.close();
     	}
     	catch(Exception e)
     	{
     		e.printStackTrace();
     	}
     }
-    
+    public void shutDown(){
+	try{
+	    socket.close();
+	    inStream.close();
+	}catch(Exception e){
+	    e.printStackTrace();
+	}
+    }
 }

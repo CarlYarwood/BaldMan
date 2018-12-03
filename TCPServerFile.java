@@ -99,13 +99,21 @@ public class TCPServerFile
     		}
     		
     		fileInput.close();
-    		serverSocket.close();
-    		socket.close();
+    		//serverSocket.close();
+    		//socket.close();
     	}
     	catch(Exception e)
     	{
     		e.printStackTrace();
     	}
+    }
+    public void shutDown(){
+	try{
+	    serverSocket.close();
+	    socket.close();
+	}catch(Exception e){
+	    e.printStackTrace();
+	}
     }
 
 }

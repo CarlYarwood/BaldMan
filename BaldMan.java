@@ -184,6 +184,7 @@ public class BaldMan{
     }
     /**
      *gets message based on object state
+     *@return byte[] for message
      */
     private byte[] getMessage(){
 	byte[] content = null;
