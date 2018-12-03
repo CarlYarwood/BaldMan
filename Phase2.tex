@@ -3,6 +3,7 @@
 
 \usepackage{amsmath}
 \usepackage[parfill]{parskip}
+\usepackage{tikz}
 \usepackage{bold-extra}
 \usepackage{listings}
 
@@ -46,6 +47,33 @@
 	The largest challenge we faced when deciding out how to implement image steganography was figuring out what on the byte level of the images we could mess with. For example, avoiding control bits and such. We luckily managed to find a java class that would extract the image's info without touching the other stuff. Ultimately, we found it was much easier to put the message or image into the disguising image than to pull it out.
 	
 	\section[Test Cases]{\Large\fontfamily{qpl}\selectfont\scshape Test Cases}
+	
+	In the following example we will be hiding Figure 1 inside Figure 2.
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/littleWizzard.png}
+		\caption{The image to be hidden.}
+	\end{figure}
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/red.png}
+		\caption{The image to be hidden inside.}
+	\end{figure}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[keepaspectratio=true, width=0.8\linewidth]{screenshot.png}
+		\caption{An example of BaldMan running.}
+	\end{figure}
+	
+	\clearpage
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[keepaspectratio=true, width=0.3\linewidth]{image/newRed.png}
+		\caption{The output in which the image is hidden.}
+	\end{figure}
 	
 	\section[Discussion]{\Large\fontfamily{qpl}\selectfont\scshape Discussion}
 	
