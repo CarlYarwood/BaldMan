@@ -323,7 +323,5 @@ public class BaldMan{
 		currentPosInImage ++;
 	    }
 	}
-    }
-	
-
+    }	
 }
