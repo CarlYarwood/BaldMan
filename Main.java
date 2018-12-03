@@ -103,12 +103,12 @@ public class Main{
 		fs.sendFile(fileName);
 	    }
 	    else if(command.equals("getFile")){
-		System.out.print("Enter the ip address you want to recive form: ");
+		System.out.print("Enter the ip address you want to receive form: ");
 		String ip = scan.nextLine();
 		System.out.print("Enter the port of connection: ");
 		int port = scan.nextInt();
 		String dummy = scan.nextLine();
-		System.out.print("Enter the Name of the new file you want to get");
+		System.out.print("Enter the Name of the new file you want to get: ");
 		String newFileName = scan.nextLine();
 		TCPClientFile soc = new TCPClientFile();
 		soc.createSocket(ip, port);
