@@ -18,6 +18,9 @@ public class AESEncryption {
 	
 	public AESEncryption() {
 	}
+    public void getState(){
+	System.out.println("Key => "+ theKey);
+    }
 	
 	public void setKey(String key) {
 		theKey = key;

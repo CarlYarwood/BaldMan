@@ -16,8 +16,10 @@ import javax.imageio.ImageIO;
 
 
 
-//stegosaurs for all your stegonagraphic needs
-//is not muffin
+/**
+BaldMan is a Stegnography class used for hiding files or messages in png images,
+it is meant to be easily implemented in a commandline or gui enviorment
+ */
 public class BaldMan{
 
     private String imagePath = null;
@@ -28,6 +30,9 @@ public class BaldMan{
 
     public BaldMan(){
     }
+    /**
+       Prints the current state of the program to the console
+     */
     public void getState(){
 	System.out.println("imagePath => " + imagePath);
 	System.out.println("message => " + message);
@@ -35,6 +40,9 @@ public class BaldMan{
 	System.out.println("messageDestinationPath => " + messageDestinationPath);
 	System.out.println("bitSteg => " + bitSteg);
     }
+    /**
+       uses the current state of the program to try to put a message in an image
+    */
     
     public void putMessageInImage(String newImageName){
 	if(imagePath == null){
@@ -83,6 +91,9 @@ public class BaldMan{
     }
 
 
+    /**
+       uses the current state of the program to try and pull an image form a message
+    */
     
     public void getMessageOutOfImage(){
 	byte letIn = 0;
