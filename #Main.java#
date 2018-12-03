@@ -1,7 +1,5 @@
 import java.util.Scanner;
 import java.io.FileOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 public class Main{
 
     public static void main(String[] args){
@@ -10,6 +8,7 @@ public class Main{
 	AESEncryption aes = new AESEncryption();
 	Scanner scan = new Scanner(System.in);
 	String command = "";
+	String subCommand = "";
 	String CommandLineState = "BaldManStego(Command): ";
 	while(keepGoing){
 	    System.out.print(CommandLineState);
@@ -25,11 +24,13 @@ public class Main{
 		System.out.print("type imagePath: ");
 		String imagePath = scan.nextLine();
 		stego.setImagePath(imagePath);
+		subCommand = "";
 	    }
 	    else if(command.equals("set messagePath")){
 		    System.out.print("type messagePath: ");
-		    String messagePath = scan.nextLine();
-		    stego.setMessagePath(messagePath);
+		    subCommand = scan.nextLine();
+		    stego.setMessagePath(subCommand);
+		    subCommand = "";
 	    }
 	    else if(command.equals("set message")){
 		System.out.print("type message: ");
@@ -55,7 +56,7 @@ public class Main{
 		}
 	    }
 	    else if(command.equals("putMessageInImage")){
-		System.out.print("enter a name for the new image where the message will be hidden: ");
+		System.out.println("enter a name for the new image where the message will be hidden: ");
 		String newImgFileName = scan.nextLine();
 		stego.putMessageInImage(newImgFileName);
 	    }
@@ -86,74 +87,31 @@ public class Main{
 		    System.out.println("could not write file");
 		}
 	    }
-	    else if(command.equals("set key")){
+	    else if(command.equals("setKey")){
 		System.out.print("Type what you would like your key to be");
 		String key = scan.nextLine();
 		aes.setKey(key);
 	    }
 	    else if(command.equals("sendFile")){
-		System.out.print("Enter the number of files you would like to send: ");
-		int numFiles = scan.nextInt();
-		String dummy = scan.nextLine();
 		System.out.print("Enter the port you wold like to use: ");
 		int port = scan.nextInt();
-		dummy = scan.nextLine();
-		String[] fileNames = new String[numFiles];
-		for(int i = 0; i < numFiles; i++){
-		    System.out.print("Enter the name of file " + i + ": ");
-		    fileNames[i] = scan.nextLine();
-		}
+		String dummy = scan.nextLine();
+		System.out.print("Enter the name of the file you want to send: ");
+		String fileName = scan.nextLine();
 		TCPServerFile fs = new TCPServerFile();
 		fs.createSocket(port);
-		for(int i = 0; i < numFiles; i++){
-		    fs.sendFile(fileNames[i]);
-		}
-		fs.shutDown();
+		fs.sendFile(fileName);
 	    }
 	    else if(command.equals("getFile")){
-		System.out.print("Enter the number of Files you would like to receive: ");
-		int numFile = scan.nextInt();
-		String dummy = scan.nextLine();
 		System.out.print("Enter the ip address you want to receive form: ");
 		String ip = scan.nextLine();
 		System.out.print("Enter the port of connection: ");
 		int port = scan.nextInt();
-		dummy = scan.nextLine();
-		String[] newFileName = new String[numFile];
-		for(int i = 0; i < numFile; i++){
-		    System.out.print("Enter the name of recived File " + i +": ");
-		    newFileName[i] = scan.nextLine();
-		}
+		String dummy = scan.nextLine();
+		String newFileName = scan.nextLine();
 		TCPClientFile soc = new TCPClientFile();
 		soc.createSocket(ip, port);
-		for(int i = 0; i< numFile; i++){
-		    soc.receiveFile(newFileName[i]);
-		}
-		soc.shutDown();
-	    }
-	    else if(command.equals("readKeyFromFile")){
-		System.out.print("Enter path to file containing key: ");
-		String keyFileName = scan.nextLine();
-		File file = new File(keyFileName);
-		FileInputStream fis = null;
-		byte[] content = null;
-		try{
-		    fis = new FileInputStream(file);
-		    content = new byte[(int) file.length()];
-		    fis.read(content);
-		}catch(Exception e){
-		    System.out.println("Could not read file");
-		}finally{
-		    try{
-			if(fis != null){
-			    fis.close();
-			}
-		    }catch(Exception e){
-			System.out.println("Issue closing File");
-		    }
-		}
-		String key = new String(content);
-		aes.setKey(key);
+		soc.receiveFile(newFileName);
 	    }
 	    else if(command.equals("-h")){
 		System.out.println("state (Recomended)");
@@ -163,14 +121,13 @@ public class Main{
 		System.out.println("set message");
 		System.out.println("set messageDestinationPath");
 		System.out.println("set bitSteg");
-		System.out.println("set key");
 		System.out.println("putMessageInImage");
 		System.out.println("getMessageOutOfImage");
 		System.out.println("encrypt");
 		System.out.println("decrypt");
+		System.out.println("setKey");
 		System.out.println("sendFile");
 		System.out.println("getFile");
-		System.out.println("readKeyFromFile");
 	    }	
 	    else{
 		System.out.println("Use -h to get a list of valid commands");
